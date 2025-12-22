@@ -1,4 +1,9 @@
+import { useEffect, useRef } from "react";
 import { Zap, Fingerprint, Scale, Cog, Building2 } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const features = [
   {
@@ -29,15 +34,124 @@ const features = [
 ];
 
 const WhyUsSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const statsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Left content animation
+      gsap.fromTo(
+        ".why-us-content",
+        { opacity: 0, x: -80 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".why-us-content",
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      // Stats counter animation
+      gsap.utils.toArray<HTMLElement>(".why-us-stat").forEach((stat, index) => {
+        gsap.fromTo(
+          stat,
+          { opacity: 0, y: 30, scale: 0.8 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.6,
+            delay: index * 0.15,
+            ease: "back.out(1.7)",
+            scrollTrigger: {
+              trigger: stat,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      });
+
+      // Feature cards stagger animation
+      gsap.utils.toArray<HTMLElement>(".why-us-feature").forEach((feature, index) => {
+        gsap.fromTo(
+          feature,
+          { opacity: 0, x: 80, scale: 0.9 },
+          {
+            opacity: 1,
+            x: 0,
+            scale: 1,
+            duration: 0.6,
+            delay: index * 0.1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: feature,
+              start: "top 90%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+
+        // Hover animations
+        feature.addEventListener("mouseenter", () => {
+          gsap.to(feature, {
+            x: 10,
+            backgroundColor: "rgba(139, 92, 246, 0.1)",
+            duration: 0.3,
+            ease: "power2.out",
+          });
+          gsap.to(feature.querySelector(".feature-icon"), {
+            scale: 1.2,
+            rotate: 15,
+            duration: 0.3,
+            ease: "back.out(1.7)",
+          });
+        });
+
+        feature.addEventListener("mouseleave", () => {
+          gsap.to(feature, {
+            x: 0,
+            backgroundColor: "rgba(139, 92, 246, 0.03)",
+            duration: 0.3,
+            ease: "power2.out",
+          });
+          gsap.to(feature.querySelector(".feature-icon"), {
+            scale: 1,
+            rotate: 0,
+            duration: 0.3,
+            ease: "power2.out",
+          });
+        });
+      });
+
+      // Continuous icon animation
+      gsap.to(".feature-icon-container", {
+        y: -3,
+        duration: 1.5,
+        ease: "power1.inOut",
+        yoyo: true,
+        repeat: -1,
+        stagger: 0.2,
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="why-us" className="relative py-24 md:py-32">
+    <section ref={sectionRef} id="why-us" className="relative py-24 md:py-32">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
       
       <div className="container relative px-4 md:px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left content */}
-          <div>
+          <div className="why-us-content">
             <span className="inline-block text-sm font-medium text-primary mb-4 tracking-wider uppercase">
               Why Choose Us
             </span>
@@ -50,16 +164,16 @@ const WhyUsSection = () => {
             </p>
 
             {/* Stats row */}
-            <div className="flex gap-8">
-              <div>
+            <div ref={statsRef} className="flex gap-8">
+              <div className="why-us-stat">
                 <div className="text-4xl font-bold gradient-text">3x</div>
                 <div className="text-sm text-muted-foreground">Faster Development</div>
               </div>
-              <div>
+              <div className="why-us-stat">
                 <div className="text-4xl font-bold gradient-text">80%</div>
                 <div className="text-sm text-muted-foreground">Less Manual Work</div>
               </div>
-              <div>
+              <div className="why-us-stat">
                 <div className="text-4xl font-bold gradient-text">∞</div>
                 <div className="text-sm text-muted-foreground">Scale Potential</div>
               </div>
@@ -71,10 +185,10 @@ const WhyUsSection = () => {
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="group flex gap-4 p-5 rounded-xl bg-glass/30 border border-transparent hover:border-glass-border transition-all duration-300 hover:bg-glass/50"
+                className="why-us-feature group flex gap-4 p-5 rounded-xl bg-glass/30 border border-transparent hover:border-glass-border transition-all duration-300 cursor-pointer"
               >
-                <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-gradient-to-br from-primary/20 to-accent/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <feature.icon className="w-6 h-6 text-primary" />
+                <div className="feature-icon-container flex-shrink-0 w-12 h-12 rounded-lg bg-gradient-to-br from-primary/20 to-accent/10 flex items-center justify-center">
+                  <feature.icon className="feature-icon w-6 h-6 text-primary" />
                 </div>
                 <div>
                   <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">
