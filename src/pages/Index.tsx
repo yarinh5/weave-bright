@@ -6,6 +6,7 @@ import WhyUsSection from "@/components/sections/WhyUsSection";
 import TechStackSection from "@/components/sections/TechStackSection";
 import CTASection from "@/components/sections/CTASection";
 import Footer from "@/components/sections/Footer";
+import FloatingContactForm from "@/components/FloatingContactForm";
 
 const Index = () => {
   return (
@@ -18,6 +19,7 @@ const Index = () => {
       <TechStackSection />
       <CTASection />
       <Footer />
+      <FloatingContactForm />
     </main>
   );
 };
