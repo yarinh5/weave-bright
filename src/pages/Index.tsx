@@ -8,6 +8,10 @@ import TechStackSection from "@/components/sections/TechStackSection";
 import CTASection from "@/components/sections/CTASection";
 import Footer from "@/components/sections/Footer";
 import FloatingContactForm from "@/components/FloatingContactForm";
+import SmoothScroll from "@/components/scroll/SmoothScroll";
+import ManifestoSection from "@/components/scroll/ManifestoSection";
+import HorizontalShowcase from "@/components/scroll/HorizontalShowcase";
+import ZoomReveal from "@/components/scroll/ZoomReveal";
 import { initGSAPAnimations } from "@/hooks/useGSAP";
 
 const Index = () => {
@@ -20,7 +24,8 @@ const Index = () => {
   }, []);
 
   return (
-    <main className="min-h-screen bg-background relative overflow-hidden">
+    <main className="min-h-screen bg-background relative overflow-x-clip">
+      <SmoothScroll />
       {/* Scroll progress bar */}
       <div className="scroll-progress fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-accent z-[100] origin-left scale-x-0" />
       
@@ -29,9 +34,12 @@ const Index = () => {
       
       <Navbar />
       <HeroSection />
+      <ManifestoSection />
       <ServicesSection />
+      <HorizontalShowcase />
       <ProcessSection />
       <WhyUsSection />
+      <ZoomReveal />
       <TechStackSection />
       <CTASection />
       <Footer />
