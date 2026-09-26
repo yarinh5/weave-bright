@@ -7,8 +7,15 @@ gsap.registerPlugin(ScrollTrigger);
 
 const SmoothScroll = () => {
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const lenis = new Lenis({ duration: 1.2, easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const usesTouch = window.matchMedia("(pointer: coarse)").matches;
+    if (prefersReducedMotion || usesTouch) return;
+
+    const lenis = new Lenis({
+      duration: 1.05,
+      smoothWheel: true,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    });
     lenis.on("scroll", ScrollTrigger.update);
     const tick = (time: number) => lenis.raf(time * 1000);
     gsap.ticker.add(tick);
