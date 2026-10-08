@@ -13,15 +13,21 @@ import ManifestoSection from "@/components/scroll/ManifestoSection";
 import HorizontalShowcase from "@/components/scroll/HorizontalShowcase";
 import ZoomReveal from "@/components/scroll/ZoomReveal";
 import { initGSAPAnimations } from "@/hooks/useGSAP";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const Index = () => {
+  const { lang } = useLanguage();
   useEffect(() => {
     // Initialize all GSAP animations
     const timer = setTimeout(() => {
       initGSAPAnimations();
     }, 100);
-    return () => clearTimeout(timer);
-  }, []);
+    return () => {
+      clearTimeout(timer);
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
+  }, [lang]);
 
   return (
     <main className="min-h-screen bg-background relative overflow-x-clip">
@@ -33,6 +39,7 @@ const Index = () => {
       <div className="cursor-glow fixed w-64 h-64 rounded-full pointer-events-none z-[60] opacity-30 blur-3xl bg-primary/30 -translate-x-1/2 -translate-y-1/2 hidden lg:block" />
       
       <Navbar />
+      <div key={lang}>
       <HeroSection />
       <ManifestoSection />
       <ServicesSection />
@@ -43,6 +50,7 @@ const Index = () => {
       <TechStackSection />
       <CTASection />
       <Footer />
+      </div>
       <FloatingContactForm />
     </main>
   );
