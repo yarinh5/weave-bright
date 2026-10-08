@@ -1,3 +1,4 @@
+import { useLanguage } from "@/i18n/LanguageContext";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -11,6 +12,7 @@ const stats = [
 ];
 
 const ZoomReveal = () => {
+  const { t } = useLanguage();
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -42,13 +44,13 @@ const ZoomReveal = () => {
 
   return (
     <section ref={ref} className="relative min-h-screen md:h-screen overflow-hidden flex flex-col items-center justify-center py-20 md:py-0">
-      <h2 className="z-title relative md:absolute text-5xl md:text-8xl font-black gradient-text text-center px-6 mb-10 md:mb-0">Automate Everything</h2>
+      <h2 className="z-title relative md:absolute text-5xl md:text-8xl font-black gradient-text text-center px-6 mb-10 md:mb-0">{t.zoom.title}</h2>
       <div className="z-panel relative md:absolute md:inset-0 bg-gradient-to-br from-primary/30 via-background to-accent/30 flex items-center justify-center py-8 md:py-0 w-full md:[clip-path:circle(0%_at_50%_50%)]">
         <div className="grid md:grid-cols-3 gap-4 md:gap-6 px-6 w-full" style={{ perspective: 800 }}>
-          {stats.map((s) => (
+          {stats.map((s, i) => (
             <div key={s.l} className="z-stat glass-card rounded-3xl p-7 md:p-10 text-center border border-border">
               <div className="text-5xl md:text-6xl font-black gradient-text mb-2">{s.v}</div>
-              <div className="text-muted-foreground uppercase tracking-widest text-sm">{s.l}</div>
+              <div className="text-muted-foreground uppercase tracking-widest text-sm">{t.zoom.stats[i]}</div>
             </div>
           ))}
         </div>

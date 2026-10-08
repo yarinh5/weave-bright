@@ -1,3 +1,4 @@
+import { useLanguage } from "@/i18n/LanguageContext";
 import { useEffect, useRef } from "react";
 import { Compass, PenTool, Rocket, TrendingUp } from "lucide-react";
 import gsap from "gsap";
@@ -33,6 +34,7 @@ const steps = [
 ];
 
 const ProcessSection = () => {
+  const { t } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
   const lineRef = useRef<HTMLDivElement>(null);
 
@@ -289,14 +291,14 @@ const ProcessSection = () => {
         {/* Section header */}
         <div className="process-header text-center max-w-3xl mx-auto mb-20">
           <span className="process-badge inline-block text-sm font-medium text-primary mb-4 tracking-wider uppercase px-4 py-1 rounded-full bg-primary/10 border border-primary/20">
-            Our Process
+            {t.process.badge}
           </span>
           <h2 className="process-title text-3xl md:text-5xl font-bold mb-6">
-            From Concept to{" "}
-            <span className="gradient-text">Launch</span>
+            {t.process.title1}{" "}
+            <span className="gradient-text">{t.process.titleGradient}</span>
           </h2>
           <p className="process-subtitle text-muted-foreground text-lg">
-            A proven methodology that delivers results on time, every time.
+            {t.process.subtitle}
           </p>
         </div>
 
@@ -330,14 +332,14 @@ const ProcessSection = () => {
                   </div>
 
                   {/* Step number badge */}
-                  <div className="step-number absolute top-4 right-4 text-4xl font-bold text-glass-border/50 group-hover:text-primary/30 transition-colors duration-300">
+                  <div className="step-number absolute top-4 end-4 text-4xl font-bold text-glass-border/50 group-hover:text-primary/30 transition-colors duration-300">
                     {step.number}
                   </div>
 
                   {/* Content */}
-                  <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors duration-300">{step.title}</h3>
+                  <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors duration-300">{t.process.steps[index].title}</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">
-                    {step.description}
+                    {t.process.steps[index].description}
                   </p>
 
                   {/* Bottom gradient accent */}

@@ -5,6 +5,8 @@ import { X, MessageCircle, Send, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 const FloatingContactForm = () => {
+  const { t, lang } = useLanguage();
+  const isHe = lang === "he";
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -27,11 +29,11 @@ const FloatingContactForm = () => {
       
       window.location.href = `mailto:yarinhazan395@gmail.com?subject=${subject}&body=${body}`;
       
-      toast.success("הטופס נשלח בהצלחה!");
+      toast.success(t.form.success);
       setFormData({ name: "", email: "", phone: "", message: "" });
       setIsOpen(false);
     } catch (error) {
-      toast.error("שגיאה בשליחת הטופס");
+      toast.error(t.form.error);
     } finally {
       setIsLoading(false);
     }
@@ -45,7 +47,7 @@ const FloatingContactForm = () => {
         className={`fixed bottom-6 right-6 z-50 md:hidden w-16 h-16 rounded-full bg-gradient-to-br from-primary to-accent shadow-lg shadow-primary/30 flex items-center justify-center transition-all duration-300 hover:scale-110 ${
           isOpen ? "scale-0 opacity-0" : "scale-100 opacity-100"
         }`}
-        aria-label="פתח טופס יצירת קשר"
+        aria-label={t.form.open}
       >
         <MessageCircle className="w-7 h-7 text-primary-foreground" />
         <span className="absolute -top-1 -right-1 w-4 h-4 bg-accent rounded-full animate-ping" />
@@ -76,45 +78,45 @@ const FloatingContactForm = () => {
           {/* Close button */}
           <button
             onClick={() => setIsOpen(false)}
-            className="absolute top-4 left-4 p-2 rounded-full hover:bg-muted transition-colors"
-            aria-label="סגור"
+            className="absolute top-4 end-4 p-2 rounded-full hover:bg-muted transition-colors"
+            aria-label={t.form.close}
           >
             <X className="w-5 h-5" />
           </button>
 
-          <h3 className="text-xl font-bold mb-4 text-right">השאירו פרטים</h3>
+          <h3 className="text-xl font-bold mb-4 text-start">{t.form.title}</h3>
 
-          <form onSubmit={handleSubmit} className="space-y-4" dir="rtl">
+          <form onSubmit={handleSubmit} className="space-y-4" dir={isHe ? "rtl" : "ltr"}>
             <Input
               type="text"
-              placeholder="שם מלא"
+              placeholder={t.form.name}
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               required
-              className="bg-muted/50 border-glass-border text-right"
+              className="bg-muted/50 border-glass-border text-start"
             />
             <Input
               type="email"
-              placeholder="אימייל"
+              placeholder={t.form.email}
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               required
-              className="bg-muted/50 border-glass-border text-right"
+              className="bg-muted/50 border-glass-border text-start"
             />
             <Input
               type="tel"
-              placeholder="טלפון"
+              placeholder={t.form.phone}
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
               required
-              className="bg-muted/50 border-glass-border text-right"
+              className="bg-muted/50 border-glass-border text-start"
             />
             <textarea
-              placeholder="הודעה"
+              placeholder={t.form.message}
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
               rows={3}
-              className="w-full rounded-lg bg-muted/50 border border-glass-border p-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-primary text-right"
+              className="w-full rounded-lg bg-muted/50 border border-glass-border p-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-primary text-start"
             />
             <Button
               type="submit"
@@ -127,8 +129,8 @@ const FloatingContactForm = () => {
                 <Loader2 className="w-5 h-5 animate-spin" />
               ) : (
                 <>
-                  שלח
-                  <Send className="w-5 h-5 mr-2" />
+                  {t.form.send}
+                  <Send className="w-5 h-5 ms-2 rtl:-scale-x-100" />
                 </>
               )}
             </Button>

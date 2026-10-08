@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const CTASection = () => {
+  const { t } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -265,34 +266,34 @@ const CTASection = () => {
                 <span className="absolute inset-0 bg-primary rounded-full animate-pulse" />
                 <span className="cta-pulse absolute inset-0 bg-primary rounded-full" />
               </span>
-              Let's Build Something Amazing
+              {t.cta.badge}
             </span>
 
             <h2 className="cta-title text-3xl md:text-5xl lg:text-6xl font-bold mb-6">
-              Ready to{" "}
-              <span className="gradient-text">Automate</span>
+              {t.cta.title1}{" "}
+              <span className="gradient-text">{t.cta.titleGradient}</span>
               <br />
-              Your Business?
+              {t.cta.title2}
             </h2>
 
             <p className="cta-description text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10">
-              Book a free strategy call and discover how we can transform your operations with custom automation systems.
+              {t.cta.description}
             </p>
 
             <div className="cta-buttons flex flex-col sm:flex-row gap-4 justify-center">
               <Button variant="hero" size="xl" className="magnetic-btn">
-                Start Now
-                <ArrowRight className="w-5 h-5" />
+                {t.cta.primary}
+                <ArrowRight className="w-5 h-5 rtl:rotate-180" />
               </Button>
               <Button variant="hero-outline" size="xl" className="magnetic-btn">
-                Schedule a Call
+                {t.cta.secondary}
               </Button>
             </div>
 
             {/* Trust indicators */}
             <div className="cta-trust mt-12 pt-8 border-t border-glass-border">
               <p className="text-sm text-muted-foreground">
-                No commitment required • Free consultation • Response within 24 hours
+                {t.cta.trust}
               </p>
             </div>
 

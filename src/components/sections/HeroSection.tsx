@@ -4,6 +4,7 @@ import { ArrowRight, Play } from "lucide-react";
 import gsap from "gsap";
 
 const HeroSection = () => {
+  const { t } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
   const orb1Ref = useRef<HTMLDivElement>(null);
   const orb2Ref = useRef<HTMLDivElement>(null);
@@ -133,41 +134,41 @@ const HeroSection = () => {
           <div className="hero-badge mb-8">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-glass/50 backdrop-blur-sm border border-glass-border text-sm text-muted-foreground">
               <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-              Now building AI-powered systems
+              {t.hero.badge}
             </span>
           </div>
 
           {/* Main headline */}
           <h1 className="hero-title text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] mb-6">
-            We Build{" "}
-            <span className="gradient-text bg-[length:200%_auto]">Automated Systems</span>
+            {t.hero.title1}{" "}
+            <span className="gradient-text bg-[length:200%_auto]">{t.hero.titleGradient}</span>
             <br />
-            That Run Your Business
+            {t.hero.title2}
           </h1>
 
           {/* Sub-headline */}
           <p className="hero-subtitle text-lg md:text-xl text-muted-foreground max-w-2xl mb-10">
-            Websites, AI agents, CRM systems and SaaS platforms — designed for efficiency, built to scale, engineered for growth.
+            {t.hero.subtitle}
           </p>
 
           {/* CTA Buttons */}
           <div className="hero-buttons flex flex-col sm:flex-row gap-4">
             <Button variant="hero" size="xl">
-              Book a Free Strategy Call
-              <ArrowRight className="w-5 h-5" />
+              {t.hero.cta1}
+              <ArrowRight className="w-5 h-5 rtl:rotate-180" />
             </Button>
             <Button variant="hero-outline" size="xl">
               <Play className="w-5 h-5" />
-              See How It Works
+              {t.hero.cta2}
             </Button>
           </div>
 
           {/* Stats or social proof */}
           <div className="mt-16 grid grid-cols-3 gap-8 md:gap-16">
             {[
-              { value: "50+", label: "Projects Delivered" },
-              { value: "98%", label: "Client Satisfaction" },
-              { value: "24/7", label: "System Uptime" },
+              { value: "50+", label: t.hero.stats[0] },
+              { value: "98%", label: t.hero.stats[1] },
+              { value: "24/7", label: t.hero.stats[2] },
             ].map((stat, index) => (
               <div key={index} className="hero-stat text-center">
                 <div className="hero-stat-value text-2xl md:text-4xl font-bold gradient-text">{stat.value}</div>
