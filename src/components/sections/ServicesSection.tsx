@@ -1,3 +1,4 @@
+import { useLanguage } from "@/i18n/LanguageContext";
 import { useEffect, useRef } from "react";
 import { Globe, Workflow, Code2, Bot, Users, FileText } from "lucide-react";
 import gsap from "gsap";
@@ -39,6 +40,7 @@ const services = [
 ];
 
 const ServicesSection = () => {
+  const { t, lang } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
 
@@ -222,14 +224,14 @@ const ServicesSection = () => {
         {/* Section header */}
         <div ref={headerRef} className="services-header text-center max-w-3xl mx-auto mb-16">
           <span className="services-badge inline-block text-sm font-medium text-primary mb-4 tracking-wider uppercase px-4 py-1 rounded-full bg-primary/10 border border-primary/20">
-            What We Build
+            {t.services.badge}
           </span>
           <h2 className="services-title text-3xl md:text-5xl font-bold mb-6">
-            End-to-End{" "}
-            <span className="gradient-text">Digital Solutions</span>
+            {t.services.title1}{" "}
+            <span className="gradient-text">{t.services.titleGradient}</span>
           </h2>
           <p className="services-subtitle text-muted-foreground text-lg">
-            From automated websites to AI-powered systems, we build everything your business needs to thrive in the digital age.
+            {t.services.subtitle}
           </p>
         </div>
 
@@ -248,15 +250,15 @@ const ServicesSection = () => {
 
               {/* Content */}
               <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors duration-300">
-                {service.title}
+                {t.services.items[index].title}
               </h3>
               <p className="text-muted-foreground leading-relaxed">
-                {service.description}
+                {t.services.items[index].description}
               </p>
 
               {/* Hover arrow indicator */}
-              <div className="service-arrow absolute bottom-8 right-8 opacity-0 transform translate-x-10">
-                <span className="text-primary text-2xl">→</span>
+              <div className="service-arrow absolute bottom-8 end-8 opacity-0 transform translate-x-10">
+                <span className="text-primary text-2xl">{lang === "he" ? "←" : "→"}</span>
               </div>
 
               {/* Glow effect on hover */}

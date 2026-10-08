@@ -1,3 +1,4 @@
+import { useLanguage } from "@/i18n/LanguageContext";
 import { useEffect, useRef } from "react";
 import { Zap, Fingerprint, Scale, Cog, Building2 } from "lucide-react";
 import gsap from "gsap";
@@ -34,6 +35,7 @@ const features = [
 ];
 
 const WhyUsSection = () => {
+  const { t } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
 
@@ -153,29 +155,29 @@ const WhyUsSection = () => {
           {/* Left content */}
           <div className="why-us-content">
             <span className="inline-block text-sm font-medium text-primary mb-4 tracking-wider uppercase">
-              Why Choose Us
+              {t.whyUs.badge}
             </span>
             <h2 className="text-3xl md:text-5xl font-bold mb-6">
-              We Don't Just Build.{" "}
-              <span className="gradient-text">We Automate.</span>
+              {t.whyUs.title1}{" "}
+              <span className="gradient-text">{t.whyUs.titleGradient}</span>
             </h2>
             <p className="text-muted-foreground text-lg mb-8">
-              Our automation-first approach means your systems work smarter, not harder. We combine cutting-edge technology with strategic thinking to deliver solutions that truly transform businesses.
+              {t.whyUs.text}
             </p>
 
             {/* Stats row */}
             <div ref={statsRef} className="flex gap-8">
               <div className="why-us-stat">
                 <div className="text-4xl font-bold gradient-text">3x</div>
-                <div className="text-sm text-muted-foreground">Faster Development</div>
+                <div className="text-sm text-muted-foreground">{t.whyUs.stats[0]}</div>
               </div>
               <div className="why-us-stat">
                 <div className="text-4xl font-bold gradient-text">80%</div>
-                <div className="text-sm text-muted-foreground">Less Manual Work</div>
+                <div className="text-sm text-muted-foreground">{t.whyUs.stats[1]}</div>
               </div>
               <div className="why-us-stat">
                 <div className="text-4xl font-bold gradient-text">∞</div>
-                <div className="text-sm text-muted-foreground">Scale Potential</div>
+                <div className="text-sm text-muted-foreground">{t.whyUs.stats[2]}</div>
               </div>
             </div>
           </div>
@@ -192,10 +194,10 @@ const WhyUsSection = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">
-                    {feature.title}
+                    {t.whyUs.features[index].title}
                   </h3>
                   <p className="text-sm text-muted-foreground">
-                    {feature.description}
+                    {t.whyUs.features[index].description}
                   </p>
                 </div>
               </div>

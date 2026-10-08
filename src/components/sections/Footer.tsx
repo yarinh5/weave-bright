@@ -1,6 +1,7 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 
 const Footer = () => {
+  const { t } = useLanguage();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -16,32 +17,32 @@ const Footer = () => {
               TechAgency
             </div>
             <p className="text-muted-foreground text-sm max-w-xs">
-              Building automated systems that transform businesses. From websites to AI agents, we've got you covered.
+              {t.footer.about}
             </p>
           </div>
 
           {/* Quick Links */}
           <div className="footer-col">
-            <h4 className="font-semibold mb-4">Quick Links</h4>
+            <h4 className="font-semibold mb-4">{t.footer.quickLinks}</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <a href="#services" className="hover:text-primary transition-colors inline-block hover:translate-x-1 duration-300">
-                  Services
+                <a href="#services" className="hover:text-primary transition-colors inline-block hover:translate-x-1 rtl:hover:-translate-x-1 duration-300">
+                  {t.footer.links[0]}
                 </a>
               </li>
               <li>
-                <a href="#process" className="hover:text-primary transition-colors inline-block hover:translate-x-1 duration-300">
-                  Our Process
+                <a href="#process" className="hover:text-primary transition-colors inline-block hover:translate-x-1 rtl:hover:-translate-x-1 duration-300">
+                  {t.footer.links[1]}
                 </a>
               </li>
               <li>
-                <a href="#why-us" className="hover:text-primary transition-colors inline-block hover:translate-x-1 duration-300">
-                  Why Choose Us
+                <a href="#why-us" className="hover:text-primary transition-colors inline-block hover:translate-x-1 rtl:hover:-translate-x-1 duration-300">
+                  {t.footer.links[2]}
                 </a>
               </li>
               <li>
-                <a href="#tech" className="hover:text-primary transition-colors inline-block hover:translate-x-1 duration-300">
-                  Technology
+                <a href="#tech" className="hover:text-primary transition-colors inline-block hover:translate-x-1 rtl:hover:-translate-x-1 duration-300">
+                  {t.footer.links[3]}
                 </a>
               </li>
             </ul>
@@ -49,7 +50,7 @@ const Footer = () => {
 
           {/* Contact */}
           <div className="footer-col">
-            <h4 className="font-semibold mb-4">Contact</h4>
+            <h4 className="font-semibold mb-4">{t.footer.contact}</h4>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li className="flex items-center gap-2 group">
                 <Mail className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" />
@@ -59,11 +60,11 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-2 group">
                 <Phone className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" />
-                <span>+1 (555) 123-4567</span>
+                <span dir="ltr">+1 (555) 123-4567</span>
               </li>
               <li className="flex items-center gap-2 group">
                 <MapPin className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" />
-                <span>San Francisco, CA</span>
+                <span>{t.footer.location}</span>
               </li>
             </ul>
           </div>
@@ -72,14 +73,14 @@ const Footer = () => {
         {/* Bottom bar */}
         <div className="footer-col pt-8 border-t border-glass-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            © {currentYear} TechAgency. All rights reserved.
+            © {currentYear} TechAgency. {t.footer.rights}
           </p>
           <div className="flex gap-6 text-sm text-muted-foreground">
             <a href="#" className="hover:text-primary transition-colors">
-              Privacy Policy
+              {t.footer.privacy}
             </a>
             <a href="#" className="hover:text-primary transition-colors">
-              Terms of Service
+              {t.footer.terms}
             </a>
           </div>
         </div>

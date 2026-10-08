@@ -1,3 +1,4 @@
+import { useLanguage } from "@/i18n/LanguageContext";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -18,6 +19,7 @@ const technologies = [
 ];
 
 const TechStackSection = () => {
+  const { t } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
   const row1Ref = useRef<HTMLDivElement>(null);
   const row2Ref = useRef<HTMLDivElement>(null);
@@ -235,14 +237,14 @@ const TechStackSection = () => {
         {/* Section header */}
         <div className="tech-header text-center max-w-3xl mx-auto mb-16">
           <span className="tech-badge-header inline-block text-sm font-medium text-primary mb-4 tracking-wider uppercase px-4 py-1 rounded-full bg-primary/10 border border-primary/20">
-            Technology Stack
+            {t.tech.badge}
           </span>
           <h2 className="tech-title text-3xl md:text-5xl font-bold mb-6">
-            Powered by{" "}
-            <span className="gradient-text">Modern Tech</span>
+            {t.tech.title1}{" "}
+            <span className="gradient-text">{t.tech.titleGradient}</span>
           </h2>
           <p className="tech-subtitle text-muted-foreground text-lg">
-            We use industry-leading technologies to build robust, scalable, and future-proof solutions.
+            {t.tech.subtitle}
           </p>
         </div>
 
@@ -263,7 +265,7 @@ const TechStackSection = () => {
                   <div className="tech-dot w-2 h-2 rounded-full bg-gradient-to-r from-primary to-accent transition-all duration-300" />
                   <span className="font-medium whitespace-nowrap">{tech.name}</span>
                   <span className="tech-category text-xs text-muted-foreground px-2 py-0.5 rounded-full bg-glass transition-all duration-300">
-                    {tech.category}
+                    {t.tech.categories[tech.category]}
                   </span>
                 </div>
               ))}
@@ -281,7 +283,7 @@ const TechStackSection = () => {
                   <div className="tech-dot w-2 h-2 rounded-full bg-gradient-to-r from-accent to-primary transition-all duration-300" />
                   <span className="font-medium whitespace-nowrap">{tech.name}</span>
                   <span className="tech-category text-xs text-muted-foreground px-2 py-0.5 rounded-full bg-glass transition-all duration-300">
-                    {tech.category}
+                    {t.tech.categories[tech.category]}
                   </span>
                 </div>
               ))}

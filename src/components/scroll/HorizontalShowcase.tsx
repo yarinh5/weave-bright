@@ -1,3 +1,4 @@
+import { useLanguage } from "@/i18n/LanguageContext";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -14,6 +15,7 @@ const panels = [
 ];
 
 const HorizontalShowcase = () => {
+  const { t } = useLanguage();
   const ref = useRef<HTMLElement>(null);
   const track = useRef<HTMLDivElement>(null);
 
@@ -72,11 +74,13 @@ const HorizontalShowcase = () => {
   return (
     <section ref={ref} className="relative min-h-screen overflow-hidden flex flex-col justify-center py-20 md:py-0 md:h-screen">
       <div className="px-6 md:px-16 mb-10">
-        <p className="text-sm uppercase tracking-[0.3em] text-primary">What we build</p>
-        <h2 className="text-4xl md:text-6xl font-bold gradient-text">Scroll through the system</h2>
+        <p className="text-sm uppercase tracking-[0.3em] text-primary">{t.showcase.eyebrow}</p>
+        <h2 className="text-4xl md:text-6xl font-bold gradient-text">{t.showcase.title}</h2>
       </div>
       <div ref={track} className="grid grid-cols-1 gap-6 px-6 md:flex md:gap-8 md:px-16 md:w-max" style={{ perspective: 1200 }}>
-        {panels.map(({ icon: Icon, title, text }, i) => (
+        {panels.map(({ icon: Icon }, i) => {
+          const { title, text } = t.showcase.panels[i];
+          return (
           <div key={title} className="h-panel glass-card rounded-3xl p-7 md:p-10 w-full md:w-[40vw] min-h-[360px] md:h-[50vh] flex flex-col justify-between border border-border">
             <span className="text-7xl font-bold text-muted-foreground/20">0{i + 1}</span>
             <div>
@@ -87,7 +91,7 @@ const HorizontalShowcase = () => {
               <p className="text-lg text-muted-foreground">{text}</p>
             </div>
           </div>
-        ))}
+        );})}
       </div>
       <div className="mx-6 md:mx-16 mt-10 h-1 bg-muted rounded-full overflow-hidden">
         <div className="h-progress h-full bg-gradient-to-r from-primary to-accent origin-left scale-x-0" />

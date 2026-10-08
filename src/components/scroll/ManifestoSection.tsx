@@ -4,10 +4,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const TEXT =
-  "Every repetitive task in your business is a system waiting to be built. We design it, automate it, and let it run — so you can focus on growth.";
 
 const ManifestoSection = () => {
+  const { t } = useLanguage();
+  const TEXT = t.manifesto;
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const ManifestoSection = () => {
         <div className="m-line h-px w-full bg-gradient-to-r from-primary to-accent origin-left mb-10" />
         <p className="text-3xl md:text-6xl font-bold leading-tight text-foreground">
           {TEXT.split(" ").map((w, i) => (
-            <span key={i} className="m-word inline-block mr-3">{w}</span>
+            <span key={i} className="m-word inline-block me-3">{w}</span>
           ))}
         </p>
       </div>

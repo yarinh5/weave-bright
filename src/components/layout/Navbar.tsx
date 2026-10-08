@@ -3,14 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import gsap from "gsap";
 
-const navLinks = [
-  { href: "#services", label: "Services" },
-  { href: "#process", label: "Process" },
-  { href: "#why-us", label: "Why Us" },
-  { href: "#tech", label: "Technology" },
-];
 
 const Navbar = () => {
+  const { t, toggle } = useLanguage();
+  const navLinks = t.nav.links;
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
@@ -102,15 +98,23 @@ const Navbar = () => {
                 className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative group"
               >
                 {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+                <span className="absolute -bottom-1 start-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
           </div>
 
-          {/* CTA Button */}
+          {/* Language + CTA */}
+          <div className="flex items-center gap-2 md:gap-3">
+          <button
+            onClick={toggle}
+            aria-label={t.nav.switchLangAria}
+            className="px-3 py-1.5 rounded-full border border-glass-border bg-glass/50 backdrop-blur-sm text-sm font-semibold text-foreground hover:border-primary/50 hover:text-primary transition-colors"
+          >
+            {t.nav.switchLang}
+          </button>
           <div className="hidden md:block nav-cta">
             <Button variant="hero" size="sm" className="magnetic-btn">
-              Get Started
+              {t.nav.cta}
             </Button>
           </div>
 
@@ -118,17 +122,18 @@ const Navbar = () => {
           <button
             className="md:hidden p-2 text-foreground"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
+            aria-label={t.nav.toggleMenu}
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
+          </div>
         </div>
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-glass-border">
             <div className="container px-4 py-6 space-y-4">
-              {navLinks.map((link, index) => (
+              {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
@@ -139,7 +144,7 @@ const Navbar = () => {
                 </a>
               ))}
               <Button variant="hero" className="mobile-menu-item w-full mt-4">
-                Get Started
+                {t.nav.cta}
               </Button>
             </div>
           </div>
